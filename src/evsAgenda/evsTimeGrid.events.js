@@ -69,10 +69,19 @@ EVSTimeGrid.mixin({
         {
             var t_slot = '<a class="' + classes.join(' ') + '" >'+event.template+'</div>';
             return t_slot;
+        }else if(seg.isHelper && view.options.helperTemplate !== '')
+        {
+            var h_slot = '<a class="' + classes.join(' ') + ' '+view.options.helperCssClass+'" >'+view.options.helperTemplate+'</div>';
+            return h_slot;
         }
         else
         {
             return TimeGrid.prototype.fgSegHtml.apply(this, arguments);
         }
+	},
+	renderHelperSegs:
+	function(segs, sourceSeg) {
+	    segs[0].isHelper = true;
+	    TimeGrid.prototype.renderHelperSegs.apply(this, arguments);
 	}
 })
